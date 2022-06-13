@@ -1,9 +1,0 @@
-#!/bin/bash
-
-alias sdc1-run-unittests="/bin/bash $SDC1_SOLUTION_ROOT/etc/run_unittests.sh"
-alias sdc1-start-dev="/bin/bash $SDC1_SOLUTION_ROOT/etc/init_dev.sh"
-alias sdc1-exec-dev="docker exec -it sdc1-dev /bin/bash"
-alias sdc1-stop-dev="docker stop sdc1-dev"
-alias sdc1-start-test="/bin/bash $SDC1_SOLUTION_ROOT/etc/init_test.sh"
-alias sdc1-exec-test="docker exec -it sdc1-test /bin/bash"
-alias sdc1-stop-test="docker stop sdc1-test"

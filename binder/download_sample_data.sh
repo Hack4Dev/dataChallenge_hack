@@ -3,7 +3,7 @@
 mkdir -p data/sample_images
 mkdir -p data/truth
 
-# Samples of the 1000 hour simulated images
+Samples of the 1000 hour simulated images
 wget -O data/sample_images/560mhz_1000h.fits https://www.dropbox.com/s/z1wdeqpq7ae0rqq/560mhz_1000h_sample.fits
 wget -O data/sample_images/1400mhz_1000h.fits https://www.dropbox.com/s/o3hvchtrv08z3u3/1400mhz_1000h_sample.fits
 wget -O data/sample_images/9200mhz_1000h.fits https://www.dropbox.com/s/vcprub2b4hzq54x/9200mhz_1000h_sample.fits
