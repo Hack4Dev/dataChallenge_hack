@@ -122,7 +122,7 @@ class SKLModel(ABC):
     def last_xmatch_score(self, new_score):
         self._last_xmatch_score = new_score
 
-    def test(
+    def test (
         self,
         srl_df,
         srl_cat_cols=SRL_CAT_COLS,
@@ -150,7 +150,7 @@ class SKLModel(ABC):
         ).iloc[sl, :]
         test_x = srl_df[srl_cat_cols + srl_num_cols]
         test_y = self._predict(test_x)
-
+        print(test_x)
         return test_y
 
     def train(

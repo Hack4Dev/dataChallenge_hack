@@ -128,14 +128,14 @@ class Sdc1Image:
         """
         return os.path.join(self.dirname, "hdu_tmp.hdr")
 
-    # def _create_train(self, pad_factor=1.0):
-    #     """
-    #     Create the training image (crop to the frequency-dependent training area)
-    #     """
-    #     self._train = None
-    #     train_path = self.path[:-5] + "_train.fits"
-    #     crop_to_training_area(self._pb_corr_image, train_path, self.freq, pad_factor)
-    #     self._train = train_path
+    def _create_train(self, pad_factor=1.0):
+        """
+        Create the training image (crop to the frequency-dependent training area)
+        """
+        self._train = None
+        train_path = self.path[:-5] + "_train.fits"
+        crop_to_training_area(self._pb_corr_image, train_path, self.freq, pad_factor)
+        self._train = train_path
 
     def _delete_train(self):
         """
@@ -147,69 +147,69 @@ class Sdc1Image:
             os.remove(self._train)
         self._train = None
 
-#     def _create_pb_corr(self):
-#         """
-#         Apply PB correction to the image at self.path, using the primary beam
-#         file at self.pb_path.
+    def _create_pb_corr(self):
+        """
+        Apply PB correction to the image at self.path, using the primary beam
+        file at self.pb_path.
 
-#         This uses Montage to regrid the primary beam image to the same pixel scale
-#         as the image to be corrected.
-#         """
-#         self._pb_corr_image = None
+        This uses Montage to regrid the primary beam image to the same pixel scale
+        as the image to be corrected.
+        """
+        self._pb_corr_image = None
 
-#         # Establish input image to PB image pixel size ratios:
-#         with fits.open(self.pb_path) as pb_hdu:
-#             pb_x_pixel_deg = pb_hdu[0].header["CDELT2"]
-#         with fits.open(self.path) as image_hdu:
-#             x_size = image_hdu[0].header["NAXIS1"]
-#             x_pixel_deg = image_hdu[0].header["CDELT2"]
+        # Establish input image to PB image pixel size ratios:
+        with fits.open(self.pb_path) as pb_hdu:
+            pb_x_pixel_deg = pb_hdu[0].header["CDELT2"]
+        with fits.open(self.path) as image_hdu:
+            x_size = image_hdu[0].header["NAXIS1"]
+            x_pixel_deg = image_hdu[0].header["CDELT2"]
 
-#         ratio_image_pb_pix = (x_size * x_pixel_deg) / pb_x_pixel_deg
-#         coord_image_centre = get_image_centre_coord(self.path)
+        ratio_image_pb_pix = (x_size * x_pixel_deg) / pb_x_pixel_deg
+        coord_image_centre = get_image_centre_coord(self.path)
 
-#         if ratio_image_pb_pix < 2.0:
-#             # Image not large enough to regrid (< 2 pixels in PB image);
-#             # apply simple correction
-#             pb_value = get_pixel_value_at_skycoord(self.pb_path, coord_image_centre)
-#             self._apply_pb_corr(pb_value)
-#             return
+        if ratio_image_pb_pix < 2.0:
+            # Image not large enough to regrid (< 2 pixels in PB image);
+            # apply simple correction
+            pb_value = get_pixel_value_at_skycoord(self.pb_path, coord_image_centre)
+            self._apply_pb_corr(pb_value)
+            return
 
-#         with fits.open(self.pb_path) as pb_hdu:
-#             # Create cropped PB image larger than the input image
-#             # TODO: May be inefficient when images get large
-#             size = (
-#                 x_size * x_pixel_deg * u.degree * 2,
-#                 x_size * x_pixel_deg * u.degree * 2,
-#             )
+        with fits.open(self.pb_path) as pb_hdu:
+            # Create cropped PB image larger than the input image
+            # TODO: May be inefficient when images get large
+            size = (
+                x_size * x_pixel_deg * u.degree * 2,
+                x_size * x_pixel_deg * u.degree * 2,
+            )
 
-#             save_subimage(
-#                 self.pb_path,
-#                 self._get_pb_cut_path(),
-#                 coord_image_centre,
-#                 size,
-#                 overwrite=True,
-#             )
+            save_subimage(
+                self.pb_path,
+                self._get_pb_cut_path(),
+                coord_image_centre,
+                size,
+                overwrite=True,
+            )
 
-#         # Regrid image PB cutout to same pixel scale as input image
-#         mGetHdr(self.path, self._get_hdr_path())
+        # Regrid image PB cutout to same pixel scale as input image
+        mGetHdr(self.path, self._get_hdr_path())
 
-#         # TODO: mProjectQL better than mProject, which outputs too-small images?
-#         rtn = mProjectQL(
-#             input_file=self._get_pb_cut_path(),
-#             output_file=self._get_pb_cut_rg_path(),
-#             template_file=self._get_hdr_path(),
-#         )
-#         if rtn["status"] == "1":
-#             raise ImageNotPreprocessed(
-#                 "Unable to reproject image: {}".format(rtn["msg"])
-#             )
+        # TODO: mProjectQL better than mProject, which outputs too-small images?
+        rtn = mProjectQL(
+            input_file=self._get_pb_cut_path(),
+            output_file=self._get_pb_cut_rg_path(),
+            template_file=self._get_hdr_path(),
+        )
+        if rtn["status"] == "1":
+            raise ImageNotPreprocessed(
+                "Unable to reproject image: {}".format(rtn["msg"])
+            )
 
-#         # Correct Montage output (convert to 32-bit and fill NaNs)
-#         pb_array = self._postprocess_montage_out()
+        # Correct Montage output (convert to 32-bit and fill NaNs)
+        pb_array = self._postprocess_montage_out()
 
-#         # Apply PB correction and delete temporary files
-#         self._apply_pb_corr(pb_array)
-#         self._cleanup_pb()
+        # Apply PB correction and delete temporary files
+        self._apply_pb_corr(pb_array)
+        self._cleanup_pb()
 
     def _delete_pb_corr(self):
         """
