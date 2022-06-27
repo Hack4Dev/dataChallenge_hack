@@ -153,64 +153,120 @@ class SKLModel(ABC):
 
         return test_y
 
-#     def train(
-#         self,
-#         srl_df,
-#         truth_cat_df,
-#         regressand_col=None,
-#         freq=1400,
-#         srl_cat_cols=SRL_CAT_COLS,
-#         srl_num_cols=SRL_NUM_COLS,
-#         srl_drop_cols=SRL_COLS_TO_DROP,
-#         sl=np.s_[::2],
-#     ):
-#         """
-#         Train the regressor on <regressand_col> using a crossmatched PyBDSF
-#         source list.
+    def pre_process(
+        self,
+        srl_df,
+        truth_cat_df,
+        regressand_col=None,
+        freq=1400,
+        srl_cat_cols=SRL_CAT_COLS,
+        srl_num_cols=SRL_NUM_COLS,
+        srl_drop_cols=SRL_COLS_TO_DROP,
+        sl=np.s_[::2],
+    ):
+        """
+        Train the regressor on <regressand_col> using a crossmatched PyBDSF
+        source list.
 
-#         Args:
-#             srl_df (:obj:`pandas.DataFrame`): Source list.
-#             truth_cat_df (:obj:`pandas.DataFrame`): Truth catalogue.
-#             regressand_col: (`str`): Regressand column name.
-#             freq: (`int`): Frequency band (MHz).
-#             srl_cat_cols: (`list`) Categorical columns in source list.
-#             srl_num_cols: (`list`) Numerical columns in source list.
-#             srl_drop_cols: (`list`) Columns to exclude in source list.
-#             sl: (`slice`) Slice of source list to use for training.
-#         Returns:
-#             srl_df (`str`): Crossmatched source list DataFrame used for training.
-#         """
-#         # Set defaults.
-#         #
-#         if regressand_col is None:
-#             regressand_col = self.defaults["regressand_col"]
+        Args:
+            srl_df (:obj:`pandas.DataFrame`): Source list.
+            truth_cat_df (:obj:`pandas.DataFrame`): Truth catalogue.
+            regressand_col: (`str`): Regressand column name.
+            freq: (`int`): Frequency band (MHz).
+            srl_cat_cols: (`list`) Categorical columns in source list.
+            srl_num_cols: (`list`) Numerical columns in source list.
+            srl_drop_cols: (`list`) Columns to exclude in source list.
+            sl: (`slice`) Slice of source list to use for training.
+        Returns:
+            srl_df (`str`): Crossmatched source list DataFrame used for training.
+        """
+        # Set defaults.
+        #
+        if regressand_col is None:
+            regressand_col = self.defaults["regressand_col"]
 
-#         # Get crossmatched DataFrame using the SDC1 scorer.
-#         #
-#         xmatch = self._xmatch_using_scorer(srl_df, truth_cat_df, freq)
-#         xmatch_df = xmatch.match_df
+        # Get crossmatched DataFrame using the SDC1 scorer.
+        #
+        xmatch = self._xmatch_using_scorer(srl_df, truth_cat_df, freq)
+        xmatch_df = xmatch.match_df
 
-#         # Reindex both source list and matched dataframes and add matched regressand
-#         # column values to source list DataFrame.
-#         #
-#         # This leaves NaN values for unmatched sources in <srl_df>.
-#         #
-#         srl_df = srl_df.set_index("Source_id")
-#         xmatch_df = xmatch_df.set_index("id")
-#         srl_df[regressand_col] = xmatch_df[regressand_col]
+        # Reindex both source list and matched dataframes and add matched regressand
+        # column values to source list DataFrame.
+        #
+        # This leaves NaN values for unmatched sources in <srl_df>.
+        #
+        srl_df = srl_df.set_index("Source_id")
+        xmatch_df = xmatch_df.set_index("id")
+        srl_df[regressand_col] = xmatch_df[regressand_col]
 
-#         # Preprocess source list, take slice, and construct training dataset.
-#         #
-#         srl_df = self._preprocess_srl_df(
-#             srl_df, srl_cat_cols, srl_num_cols, srl_drop_cols
-#         ).iloc[sl, :]
-#         train_x = srl_df[srl_cat_cols + srl_num_cols]
-#         train_y = srl_df[regressand_col].values
+        # Preprocess source list, take slice, and construct training dataset.
+        #
+        srl_df = self._preprocess_srl_df(
+            srl_df, srl_cat_cols, srl_num_cols, srl_drop_cols
+        ).iloc[sl, :]
+        train_x = srl_df[srl_cat_cols + srl_num_cols]
+        train_y = srl_df[regressand_col].values
 
-#         self._fit(train_x, train_y)
+        return srl_df
 
-#         return srl_df
 
+    def train(
+        self,
+        srl_df,
+        truth_cat_df,
+        regressand_col=None,
+        freq=1400,
+        srl_cat_cols=SRL_CAT_COLS,
+        srl_num_cols=SRL_NUM_COLS,
+        srl_drop_cols=SRL_COLS_TO_DROP,
+        sl=np.s_[::2],
+    ):
+        """
+        Train the regressor on <regressand_col> using a crossmatched PyBDSF
+        source list.
+
+        Args:
+            srl_df (:obj:`pandas.DataFrame`): Source list.
+            truth_cat_df (:obj:`pandas.DataFrame`): Truth catalogue.
+            regressand_col: (`str`): Regressand column name.
+            freq: (`int`): Frequency band (MHz).
+            srl_cat_cols: (`list`) Categorical columns in source list.
+            srl_num_cols: (`list`) Numerical columns in source list.
+            srl_drop_cols: (`list`) Columns to exclude in source list.
+            sl: (`slice`) Slice of source list to use for training.
+        Returns:
+            srl_df (`str`): Crossmatched source list DataFrame used for training.
+        """
+        # Set defaults.
+        #
+        if regressand_col is None:
+            regressand_col = self.defaults["regressand_col"]
+
+        # Get crossmatched DataFrame using the SDC1 scorer.
+        #
+        xmatch = self._xmatch_using_scorer(srl_df, truth_cat_df, freq)
+        xmatch_df = xmatch.match_df
+
+        # Reindex both source list and matched dataframes and add matched regressand
+        # column values to source list DataFrame.
+        #
+        # This leaves NaN values for unmatched sources in <srl_df>.
+        #
+        srl_df = srl_df.set_index("Source_id")
+        xmatch_df = xmatch_df.set_index("id")
+        srl_df[regressand_col] = xmatch_df[regressand_col]
+
+        # Preprocess source list, take slice, and construct training dataset.
+        #
+        srl_df = self._preprocess_srl_df(
+            srl_df, srl_cat_cols, srl_num_cols, srl_drop_cols
+        ).iloc[sl, :]
+        train_x = srl_df[srl_cat_cols + srl_num_cols]
+        train_y = srl_df[regressand_col].values
+
+        self._fit(train_x, train_y)
+
+        return srl_df
     def validate(
         self,
         srl_df,
