@@ -122,8 +122,8 @@ class SKLModel(ABC):
     def last_xmatch_score(self, new_score):
         self._last_xmatch_score = new_score
 
-    def test(
-        self,
+    def test(self,
+        model,
         srl_df,
         srl_cat_cols=SRL_CAT_COLS,
         srl_num_cols=SRL_NUM_COLS,
@@ -149,7 +149,7 @@ class SKLModel(ABC):
             srl_df, srl_cat_cols, srl_num_cols, srl_drop_cols
         ).iloc[sl, :]
         test_x = srl_df[srl_cat_cols + srl_num_cols]
-        test_y = self._predict(test_x) # why is it called test_y, if it is the ground truth.
+        test_y = model.predict(test_x) # why is it called test_y, if it is the ground truth.
 
         return test_y
 
