@@ -147,7 +147,7 @@ class Sdc1Image:
             os.remove(self._train)
         self._train = None
 
-    def _create_pb_corr(self):
+    def _create_pb_corr(self, threshold=0.1):
         """
         Apply PB correction to the image at self.path, using the primary beam
         file at self.pb_path.
@@ -203,10 +203,13 @@ class Sdc1Image:
             raise ImageNotPreprocessed(
                 "Unable to reproject image: {}".format(rtn["msg"])
             )
-
+     
         # Correct Montage output (convert to 32-bit and fill NaNs)
         pb_array = self._postprocess_montage_out()
 
+        if threshold > 0:
+            pb_array[pb_array < threshold] = np.nan
+        
         # Apply PB correction and delete temporary files
         self._apply_pb_corr(pb_array)
         self._cleanup_pb()
