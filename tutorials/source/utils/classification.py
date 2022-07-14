@@ -38,6 +38,7 @@ class SKLModel(ABC):
         #
         srl_df = srl_df.dropna()
 
+        
         # Drop obsolete columns.
         #
         srl_df = srl_df.drop(srl_drop_cols, axis=1)
@@ -53,6 +54,7 @@ class SKLModel(ABC):
         #
         for col in srl_num_cols:
             srl_df[col] = srl_df[col].astype(float)
+
 
         return srl_df
 
@@ -110,7 +112,7 @@ class SKLModel(ABC):
         truth_cat_df = truth_cat_df.dropna()
 
         scorer = Sdc1Scorer(sub_cat_df, truth_cat_df, freq)
-        self._last_xmatch_score = scorer.run(train=True, detail=True, mode=1)
+        self._last_xmatch_score = scorer.run(train=True, detail=True, mode=1) # dont know what the mode does
 
         return self._last_xmatch_score
 
@@ -162,7 +164,7 @@ class SKLModel(ABC):
         srl_cat_cols=SRL_CAT_COLS,
         srl_num_cols=SRL_NUM_COLS,
         srl_drop_cols=SRL_COLS_TO_DROP,
-        sl=np.s_[::2],
+        sl=np.s_[::2], # this line means, that the code takes every second row from the df (BUT WHY ?)
     ):
         """
         Train the regressor on <regressand_col> using a crossmatched PyBDSF
@@ -187,6 +189,7 @@ class SKLModel(ABC):
 
         # Get crossmatched DataFrame using the SDC1 scorer.
         #
+
         xmatch = self._xmatch_using_scorer(srl_df, truth_cat_df, freq)
         xmatch_df = xmatch.match_df
 
@@ -201,11 +204,12 @@ class SKLModel(ABC):
 
         # Preprocess source list, take slice, and construct training dataset.
         #
-        srl_df = self._preprocess_srl_df(
-            srl_df, srl_cat_cols, srl_num_cols, srl_drop_cols
-        ).iloc[sl, :]
-        train_x = srl_df[srl_cat_cols + srl_num_cols]
-        train_y = srl_df[regressand_col].values
+        # srl_df = self._preprocess_srl_df(srl_df, srl_cat_cols, srl_num_cols, srl_drop_cols).iloc[sl, :] # from the row side they are sking every 2, but why if the whole set was for training  (no Idea, no Idea)
+        
+        srl_df = self._preprocess_srl_df(srl_df, srl_cat_cols, srl_num_cols, srl_drop_cols)
+        
+        # train_x = srl_df[srl_cat_cols + srl_num_cols]
+        # train_y = srl_df[regressand_col].values
 
         return srl_df
 
@@ -255,7 +259,6 @@ class SKLModel(ABC):
         srl_df = srl_df.set_index("Source_id")
         xmatch_df = xmatch_df.set_index("id")
         srl_df[regressand_col] = xmatch_df[regressand_col]
-
         # Preprocess source list, take slice, and construct training dataset.
         #
         srl_df = self._preprocess_srl_df(
