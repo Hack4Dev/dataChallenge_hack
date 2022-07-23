@@ -1,6 +1,6 @@
-# SDC1 walkthrough tutorials.
+# SDC1 notebooks
 
-This folder contains two notebooks, which includes the following:
+This folder contains two notebooks, which include the following:
 - tutorial 1:
    1. Image clipping
    2. Primary beam correction
