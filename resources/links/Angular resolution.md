@@ -13,8 +13,9 @@
 
 It seems that in astronomy, there is a relationship between the image resolution $\theta$ and the wavelength $\lambda$ giving by
 
-$\theta = 1.22 \frac{\lambda} {D}$
-$$\int_\Omega \nabla u \cdot \nabla v~dx = \int_\Omega fv~dx$$
+	$$\theta = 1.22 \frac{\lambda} {D}$$
+
+	$$\int_\Omega \nabla u \cdot \nabla v~dx = \int_\Omega fv~dx$$
 
 - Where $D$ is the diameter of the telescope.
 - to get better resolution (small $\theta$), we need:
