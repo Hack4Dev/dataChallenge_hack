@@ -13,9 +13,8 @@
 
 It seems that in astronomy, there is a relationship between the image resolution $\theta$ and the wavelength $\lambda$ giving by
 
-**The Cauchy-Schwarz Inequality**
 
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+$$\sqrt{3x-1}+(1+x)^2$$
 
 
 - Where $D$ is the diameter of the telescope.
