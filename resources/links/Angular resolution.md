@@ -13,9 +13,10 @@
 
 It seems that in astronomy, there is a relationship between the image resolution $\theta$ and the wavelength $\lambda$ giving by
 
-	$$\theta = 1.22 \frac{\lambda} {D}$$
+**The Cauchy-Schwarz Inequality**
 
-	$$\int_\Omega \nabla u \cdot \nabla v~dx = \int_\Omega fv~dx$$
+$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+
 
 - Where $D$ is the diameter of the telescope.
 - to get better resolution (small $\theta$), we need:
