@@ -14,7 +14,7 @@
 It seems that in astronomy, there is a relationship between the image resolution $\theta$ and the wavelength $\lambda$ giving by
 
 
-$$\sqrt{3x-1} = (1+x)^2$$
+$$\theta = 1.22 \frac{\lambda} {D}$$
 
 
 - Where $D$ is the diameter of the telescope.
