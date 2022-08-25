@@ -12,7 +12,9 @@
 **_SO THE GOAL BECOMES HOW TO MAKE IMAGES WITH SMALL ANGULAR RESOLUTIONS._**
 
 It seems that in astronomy, there is a relationship between the image resolution $\theta$ and the wavelength
+
 $\lambda$ giving by $$ \theta = 1.22 \frac{\lambda} {D} $$
+
 - Where $D$ is the diameter of the telescope.
 - to get better resolution (small $\theta$), we need:
 	- Large lenses ($D$)
