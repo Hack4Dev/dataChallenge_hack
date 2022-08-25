@@ -5,7 +5,7 @@
 - https://en.wikipedia.org/wiki/Angular_resolution
 
 ---
-
+  
 #### What is the angular resolution?
 - Any image-forming device like a telescope can be used to recognise small details of an object. Hence, the smaller the angular resolution, the better the formed image as it can focus on smaller and smaller details. 
 
