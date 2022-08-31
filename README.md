@@ -1,10 +1,10 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5526844.svg)](https://doi.org/10.5281/zenodo.5526844)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7038247.svg)](https://doi.org/10.5281/zenodo.7038247)
 
 # Science Data Challenge 1 Tutorial Workflow
+This tutorial is based on the SKA Data Challenge 1. The aim of the tutorial is to learn to identify and classify sources in radio images. The data provided is simulated, to represent what the SKA data will look like once the telescope is in operation.
 
-The SKA Science Data Challenge 1 (SDC1, https://astronomers.skatelescope.org/ska-science-data-challenge-1/) tasked participants with identifying and classifying sources in synthetic radio images.
 
-Here we present a tutorial to this challenge that can easily be developed further. The aim of the tutorial is as  follows:
+The aim of the tutorial is as  follows:
   - Source finding (RA, Dec) to locate the centroids and/or core positions,
   - Source property characterization (integrated flux density, possible core fraction, major and minor axis size, major axis position angle)
   - Source classification (one of SFG, AGN-steep, AGN-flat)
