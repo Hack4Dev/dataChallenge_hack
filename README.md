@@ -1,37 +1,49 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7038247.svg)](https://doi.org/10.5281/zenodo.7038247)
 
-# Science Data Challenge 1 Tutorial Workflow
-This tutorial is based on the SKA Data Challenge 1. The aim of the tutorial is to learn to identify and classify sources in radio images. The data provided is simulated, to represent what the SKA data will look like once the telescope is in operation.
 
-
-The aim of the tutorial is as  follows:
+The aim of the tutorials is as  follows:
   - Source finding (RA, Dec) to locate the centroids and/or core positions,
   - Source property characterization (integrated flux density, possible core fraction, major and minor axis size, major axis position angle)
   - Source classification (one of SFG, AGN-steep, AGN-flat)
 
 
+## Data
+3 different simulated data are used in this workflow, where the simulation represents the following frequencies:
+- 560 MHz
+- 1400 MHz
+- 9200 MHz
 
-## Development and execution environment
-
-
-```bash
-> git clone https://github.com/Hack4Dev/apple_classification.git
-```
-
-A small subsample of each image can be downloaded using the script `binder/download_sample_data.sh`, to excute the script run the following:
 
 ```bash
 >  bash binder/download_sample_data.sh
 ```
 
-Then make sure you have the right Python libraries for the tutorials. They can all be installed using pip and the requirements.txt file in the repo:
+
+## Hackathon Task
+From the proposed pipeline, investigate new ways to find/classify sources.
+
+
+## Prerequisites
+
+All the libraries/dependencies necessary to run the tutorials are listed in the [requirements.txt](https://github.com/Hack4Dev/dataChallenge_hack/blob/master/requirements.txt) file.
+
+
+## Installation
+
+All the required libraries can be installed using pip and the [requirements.txt](https://github.com/Hack4Dev/dataChallenge_hack/blob/master/requirements.txt) file in the repo:
 
 ```bash
 > pip install -r requirements.txt
 ```
 
+### Would you like to clone this repository? Feel free!
 
------
+```bash
+> git clone https://github.com/Hack4Dev/dataChallenge_hack.git
+```
+
+Then make sure you have the right Python libraries for the tutorials. 
+
 
 ### New to Github?
 
@@ -44,14 +56,15 @@ apt install git
 You can then clone the repository by typing:
 
 ```
-git clone https://github.com/Hack4Dev/apple_classification.git
+git clone https://github.com/Hack4Dev/dataChallenge_hack.git
 ```
 
 To update your clone if changes are made, use:
 
 ```
-cd apple_classification/
+cd dataChallenge_hack/
 git pull
 ```
 
 -----
+
