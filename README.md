@@ -1,12 +1,5 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7038247.svg)](https://doi.org/10.5281/zenodo.7038247)
-# SKA Science Data Challenge-1, tutorial/hack format
 
-## Description
-
-Welcome to the SKA Science Data Challenge-1! The SKA planned for 4 data challenges to prepare the scientific community for the challenges that the SKA will present. We took the 1st data challenge and turned it into a tutorial format suitable for early carer researchers. From the tutorials, you will learn the following:
-
-- *Tutorial 1* : Data preprocessing
-- *Tutorial 2* : Source classification
 
 The aim of the tutorials is as  follows:
   - Source finding (RA, Dec) to locate the centroids and/or core positions,
@@ -20,7 +13,6 @@ The aim of the tutorials is as  follows:
 - 1400 MHz
 - 9200 MHz
 
-A  sample of each image can be downloaded using the script `binder/download_sample_data.sh`, to excute the script run the following:
 
 ```bash
 >  bash binder/download_sample_data.sh
