@@ -8,13 +8,11 @@ def image_path(freq):
 def pb_path(freq):
     return os.path.join("../data", "sample_images", "{}mhz_pb.fits".format(freq))
 
-
 def train_truth_path(freq):
-    return os.path.join("/idia/users/hussein/data", "truth", "{}mhz_truth_train.txt".format(freq))
-
+    return os.path.join("../data", "truth", "{}mhz_truth_train.txt".format(freq))
 
 def full_truth_path(freq):
-    return os.path.join("/idia/users/hussein/data", "truth", "{}mhz_truth_full.txt".format(freq))
+    return os.path.join("../data", "truth", "{}mhz_truth_full.txt".format(freq))
 
 
 # Output data paths
